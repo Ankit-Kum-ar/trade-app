@@ -95,7 +95,7 @@ export const deleteSignal = async (req, res) => {
       message: "Signal deleted successfully",
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error in deleteSignal:", error.message);
 
     return res.status(500).json({
       success: false,
@@ -138,11 +138,15 @@ export const getSignalStatus = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error in getSignalStatus:", {
+      message: error.message,
+      stack: error.stack,
+      response: error.response?.data,
+    });
 
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: error.message || "Internal server error",
     });
   }
 };
